@@ -7,3 +7,5 @@ const DevSchema = mongoose.Schema({
     avatar_url: String,
     techs: [String],
 })
+
+module.exports = mongoose.model('Dev', DevSchema)
