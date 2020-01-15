@@ -2,13 +2,6 @@ const axios = require('axios')
 const Dev = require('../models/Dev')
 const parseStringAsArray = require('../utils/parseStringAsArray')
 
-//index, show, store, update, destroy
-//index = listagem de vários itens
-//show = listagem de um único item
-//store = criação de um item
-//update = alteração de um item
-//destroy = remoção de um  item
-
 module.exports = {
     async store(req, res) {
         const { github_username, techs, latitude, longitude } = req.body
