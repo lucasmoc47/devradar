@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import api from './services/api'
 
 import './global.css'
 import './App.css'
 import './Sidebar.css'
 import './Main.css'
-
-
 
 function App() {
 	const [latitude, setLatitude] = useState('')
@@ -32,6 +31,15 @@ function App() {
 
 	async function handleAddDev(e) {
 		e.preventDefault()
+
+		const response = await api.post('/devs', {
+			github_username,
+			techs,
+			latitude,
+			longitude
+		})
+
+		console.log(response.data)
 	}
 
 	return (
