@@ -43,5 +43,13 @@ module.exports = {
         const devs = await Dev.find()
 
         return res.json(devs)
+    },
+
+    async update(req, res) {
+
+    },
+
+    async destroy(req, res) {
+        
     }
 }
