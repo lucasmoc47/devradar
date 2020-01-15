@@ -11,6 +11,7 @@ function App() {
 	const [longitude, setLongitude] = useState('')
 	const [github_username, setGithubUsername] = useState('')
 	const [techs, setTechs] = useState('')
+	const [devs, setDevs] = useState([])
 
 	useEffect(() => {
 		navigator.geolocation.getCurrentPosition(
@@ -29,6 +30,16 @@ function App() {
 		)
 	}, [])
 
+	useEffect(() => {
+		async function loadDevs() {
+			const response = await api.get('devs')
+
+			setDevs(response.data)
+		}
+
+		loadDevs()
+	}, [])
+
 	async function handleAddDev(e) {
 		e.preventDefault()
 
@@ -39,7 +50,8 @@ function App() {
 			longitude
 		})
 
-		console.log(response.data)
+		setGithubUsername('')
+		setTechs('')
 	}
 
 	return (
@@ -99,28 +111,19 @@ function App() {
 
 			<main>
 				<ul>
-					<li className="dev-item">
-						<header>
-							<img src="https://avatars1.githubusercontent.com/u/10157033?s=460&v=4" alt="Lucas Caribé"/>
-							<div className="user-info">
-								<strong>Lucas Caribé</strong>
-								<span>ReactJS, ReactNative, NodeJS</span>
-							</div>
-						</header>
-						<p>BIO</p>
-						<a href="https://github.com/lucasmoc47/">Acessar perfil no GitHub</a>
-					</li>
-					<li className="dev-item">
-						<header>
-							<img src="https://avatars1.githubusercontent.com/u/10157033?s=460&v=4" alt="Lucas Caribé"/>
-							<div className="user-info">
-								<strong>Lucas Caribé</strong>
-								<span>ReactJS, ReactNative, NodeJS</span>
-							</div>
-						</header>
-						<p>BIO</p>
-						<a href="https://github.com/lucasmoc47/">Acessar perfil no GitHub</a>
-					</li>
+					{devs.map(dev => (
+						<li key={dev._id} className="dev-item">
+							<header>
+								<img src={dev.avatar_url} alt={dev.name}/>
+								<div className="user-info">
+									<strong>{dev.name}</strong>
+									<span>{dev.techs.join(', ')}</span>
+								</div>
+							</header>
+							<p>{dev.bio}</p>
+							<a href={`https://github.com/${dev.github_username}`}>Acessar perfil no GitHub</a>
+						</li>	
+					))}
 				</ul>
 			</main>
 		</div>
