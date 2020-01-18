@@ -51,7 +51,7 @@ function Main({ navigation }){
     function handleRegionChanged(region){
         //console.log(region)
         setCurrentRegion(region)
-        loadDevs()
+        //loadDevs()
     }
 
     if(!currentRegion) {
