@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
@@ -11,7 +13,7 @@ const server = http.Server(app)
 
 setupWebSocket(server)
 
-mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack-4t7ay.mongodb.net/omnistack10?retryWrites=true&w=majority', { 
+mongoose.connect(process.env.MONGO_URL, { 
     useNewUrlParser: true, 
     useUnifiedTopology: true 
 })
